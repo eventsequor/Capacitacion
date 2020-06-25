@@ -2,6 +2,10 @@ package com.sophos.Nivel1.Capacitacion;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.libreria.LibreriaClase.FuncionesMatematicas.FuncionesAritmeticas;
 import com.sophos.Nivel1.Capacitacion.Clase4.Carro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Modificadores1;
 import com.sophos.Nivel1.Capacitacion.Clase4.Polihedro;
@@ -14,6 +18,28 @@ import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
 public class App {
 	public static void main(String[] args) {
 
+		int limiteInferior = -30;
+		int limiteSuperior = 9;
+		while (limiteInferior <= limiteSuperior) {
+			System.out.println(
+					"El resultado potencia al cuadrado de cuando x es:" + limiteInferior +": "+ Math.pow(limiteInferior, 2));
+			limiteInferior++;
+		}
+
+		String ruta = "C:\\Users\\usuario\\eclipse-workspace2020\\Capacitacion\\documentoEjemplo.txt";
+		Entradas_Salidas objIO = new Entradas_Salidas();
+//		objIO.entradasPorConsola();
+		objIO.lecturaArchivo(ruta);
+	}
+
+	public void clase6() {
+		FuncionesAritmeticas obj = new FuncionesAritmeticas();
+		System.out.println(obj.suma(5, 45));
+		WebDriver driver = new FirefoxDriver();
+		driver.get("");
+	}
+
+	public void clase4() {
 		Carro objCarro = new Carro();
 		objCarro.setCantidaLlantas(4);
 		objCarro.setColor("Azul");
