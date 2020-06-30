@@ -17,7 +17,14 @@ import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
  */
 public class App {
 	public static void main(String[] args) {
-
+		Driver objDriver = new Driver();
+		objDriver.navegadorGoogle();
+		objDriver.navegadorFireFox();
+		objDriver.navegadorInternetExplore();
+		
+	}
+	
+	public void clase6_2() {
 		int limiteInferior = -30;
 		int limiteSuperior = 9;
 		while (limiteInferior <= limiteSuperior) {
