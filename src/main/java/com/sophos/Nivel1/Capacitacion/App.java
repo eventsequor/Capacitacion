@@ -21,6 +21,9 @@ public class App {
 		objDriver.navegadorGoogle();
 		objDriver.navegadorFireFox();
 		objDriver.navegadorInternetExplore();
+		Class<Driver> claseDriver = Driver.class;
+		
+		
 		
 	}
 	

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class Driver {
 	WebDriver driver;
@@ -21,16 +23,26 @@ public class Driver {
 	public void navegadorInternetExplore() {
 		String rutaDriver = ".\\src\\main\\java\\resources\\drivers\\IEDriverServer.exe";
 		System.setProperty("webdriver.ie.driver", rutaDriver);
-		driver = new InternetExplorerDriver();
+//		DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
+//        cap.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+		InternetExplorerOptions options = new InternetExplorerOptions();
+		options.ignoreZoomSettings();
+		options.introduceFlakinessByIgnoringSecurityDomains();
+		options.enablePersistentHovering();
+		options.disableNativeEvents();
+		WebDriver driver = new InternetExplorerDriver(options);
 		driver.get("https://www.google.com/");
 		WebElement elemento = driver.findElement(By.name("q"));
+		System.out.println("Se ejecuta acá");
 		driver.close();
+		System.out.println("Por ultimo se ejecuta acá");
 	}
 
 	public void navegadorFireFox() {
 		String rutaDriver = ".\\src\\main\\java\\resources\\drivers\\geckodriver.exe";
 		System.setProperty("webdriver.gecko.driver", rutaDriver);
 		driver = new FirefoxDriver();
+		driver.get("https://www.google.com/");
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
