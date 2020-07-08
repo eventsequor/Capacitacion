@@ -1,8 +1,11 @@
 package com.sophos.Nivel1.Capacitacion;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.libreria.LibreriaClase.FuncionesMatematicas.FuncionesAritmeticas;
@@ -17,22 +20,87 @@ import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
  */
 public class App {
 	public static void main(String[] args) {
-		Driver objDriver = new Driver();
-		objDriver.navegadorGoogle();
-		objDriver.navegadorFireFox();
-		objDriver.navegadorInternetExplore();
-		Class<Driver> claseDriver = Driver.class;
-		
-		
-		
+
+
 	}
 	
+	public void clase9() {
+		Ordenamiento objOrde = new Ordenamiento();
+		objOrde.metodo1();
+		objOrde.recursividad(1);
+
+		int arreglo[] = { 7, 5, 9, 41, 74, 2, 47, 34, 12 };
+		objOrde.ordenamientoBurbuja(arreglo);
+
+		for (int i = 0; i < arreglo.length; i++) {
+			System.out.print("[" + arreglo[i] + "],");
+		}
+
+	}
+	
+
+	
+
+	public void paginaMecadoLibre() {
+		WebDriver driverLocal;
+		Driver objDriver = new Driver();
+		objDriver.lanzarNavegador("GOOGLE");
+		objDriver.navegarA("https://www.mercadolibre.com.co/");
+		WebElement cajaTexto = objDriver.getDriver().findElement(By.name("as_word"));
+		cajaTexto.sendKeys("Sillas gamer");
+		cajaTexto.submit();
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		List<WebElement> listaElementos = objDriver.getDriver()
+				.findElements(By.className("objDriver.getDriver()"));
+		
+		System.out.println("Cantidad elementos encontrados "+listaElementos.size());
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		objDriver.cierreNavegador();
+	}
+
+	public void clase8() {
+		Driver objDriver = new Driver();
+		objDriver.lanzarNavegador("google");
+		objDriver.navegarA("https://www.google.com/");
+
+		WebElement cajaTexto = objDriver.getDriver().findElement(By.name("q"));
+		cajaTexto.sendKeys("Html");
+		WebElement cajaTexto2 = objDriver.getDriver()
+				.findElement(By.xpath("//*[@id=\"tsf\"]/div[2]/div[1]/div[1]/div/div[2]/input"));
+		cajaTexto2.sendKeys(" 5");
+		cajaTexto2.submit();
+
+		ArrayList<WebElement> listaElemento = (ArrayList<WebElement>) objDriver.getDriver()
+				.findElements(By.className("LC20lb DKV0Md"));
+		for (WebElement elemento : listaElemento) {
+			System.out.println(elemento.getText());
+		}
+//		WebElement botonBuscar = objDriver.getDriver().findElement(By.name("btnK"));
+//		botonBuscar.click();
+
+		try {
+			Thread.sleep(5000);
+		} catch (Exception e) {
+			System.out.println("Fallo en la espera");
+		}
+
+		objDriver.cierreNavegador();
+	}
+
 	public void clase6_2() {
 		int limiteInferior = -30;
 		int limiteSuperior = 9;
 		while (limiteInferior <= limiteSuperior) {
-			System.out.println(
-					"El resultado potencia al cuadrado de cuando x es:" + limiteInferior +": "+ Math.pow(limiteInferior, 2));
+			System.out.println("El resultado potencia al cuadrado de cuando x es:" + limiteInferior + ": "
+					+ Math.pow(limiteInferior, 2));
 			limiteInferior++;
 		}
 
