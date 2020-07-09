@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.libreria.LibreriaClase.FuncionesMatematicas.FuncionesAritmeticas;
@@ -13,6 +14,9 @@ import com.sophos.Nivel1.Capacitacion.Clase4.Carro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Modificadores1;
 import com.sophos.Nivel1.Capacitacion.Clase4.Polihedro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
+import com.sophos.Nivel1.Capacitacion.PatronFactory.Fruta;
+import com.sophos.Nivel1.Capacitacion.PatronFactory.Mango;
+import com.sophos.Nivel1.Capacitacion.PatronFactory.Manzana;
 
 /**
  * Hello world!
@@ -20,7 +24,20 @@ import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
  */
 public class App {
 	public static void main(String[] args) {
-
+//		Fruta mango = new Mango();
+//		System.out.println(mango.color());
+//		
+//		Fruta manzana = new Manzana();
+//		System.out.println(manzana.color());
+//		
+//		WebDriver objDriver = new ChromeDriver();
+		
+		
+		
+		
+		PatronSingleton objPatron = PatronSingleton.getInstancia("Instancia uno","clave 1");
+		System.out.println(objPatron.toString());
+		
 
 	}
 	
