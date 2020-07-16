@@ -8,12 +8,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import com.libreria.LibreriaClase.FuncionesMatematicas.FuncionesAritmeticas;
 import com.sophos.Nivel1.Capacitacion.Clase4.Carro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Modificadores1;
 import com.sophos.Nivel1.Capacitacion.Clase4.Polihedro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
+import com.sophos.Nivel1.Capacitacion.PageObject.VistaHomeEbay;
+import com.sophos.Nivel1.Capacitacion.PageObject.VistaHomeMercadoLibre;
+import com.sophos.Nivel1.Capacitacion.PageObject.VistaResultados;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Fruta;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Mango;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Manzana;
@@ -24,6 +28,61 @@ import com.sophos.Nivel1.Capacitacion.PatronFactory.Manzana;
  */
 public class App {
 	public static void main(String[] args) {
+
+		App app = new App();
+		app.clase11MercadoLibre();
+
+	}
+	
+	public void clase12iEBay() {
+		Driver objDriver = new Driver();
+		objDriver.lanzarNavegador("google");
+		objDriver.navegarA("https://www.ebay.com/");
+		VistaHomeEbay ebay = new VistaHomeEbay(objDriver.getDriver());
+		if(ebay.seleccionarListaDesplegablePorNombre("Cámaras y   fotografía")) {
+			System.out.println("Pudo seleccionar una posición");
+		}else {
+			System.out.println("La posición ingresada no existe");
+		}
+
+		try {
+			Thread.sleep(5000);	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		objDriver.cierreNavegador();
+		
+	}
+	
+	public void clase11MercadoLibre() {
+		
+		Driver objDriver = new Driver();
+		objDriver.lanzarNavegador("firefox");
+		objDriver.navegarA("https://www.mercadolibre.com.co/");
+		VistaHomeMercadoLibre objVistaHome = new VistaHomeMercadoLibre(objDriver.getDriver());
+		objVistaHome.setTexto("mazadfadfadfasdfadfadfasdfada");
+	
+		VistaResultados objResultados = new VistaResultados(objDriver.getDriver());
+		if(objResultados.darClickPrimerResultado()) {
+			System.out.println("El elemento exite");
+		}else {
+			System.out.println("El elemento que desea buscar no existe");
+		}
+		
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		objDriver.cierreNavegador();
+	}
+	
+	
+	
+	
+	public void clase10() {
 //		Fruta mango = new Mango();
 //		System.out.println(mango.color());
 //		
@@ -37,8 +96,6 @@ public class App {
 		
 		PatronSingleton objPatron = PatronSingleton.getInstancia("Instancia uno","clave 1");
 		System.out.println(objPatron.toString());
-		
-
 	}
 	
 	public void clase9() {

@@ -1,5 +1,7 @@
 package com.sophos.Nivel1.Capacitacion;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,15 +12,22 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class Driver {
-	private WebDriver driver;
+	private static WebDriver driver;
 
-	public WebDriver getDriver() {
+	public static WebDriver getDriver() {		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return driver;
 	}
 
 
 
 	public void setDriver(WebDriver driver) {
+		this.driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		this.driver = driver;
 	}
 
