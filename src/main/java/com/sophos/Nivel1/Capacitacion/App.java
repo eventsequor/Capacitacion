@@ -1,87 +1,270 @@
 package com.sophos.Nivel1.Capacitacion;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import javax.swing.JOptionPane;
+
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.TargetLocator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Command;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.winium.DesktopOptions;
+import org.openqa.selenium.winium.WiniumDriver;
+import org.openqa.selenium.winium.WiniumDriverCommandExecutor;
+import org.openqa.selenium.winium.WiniumDriverService;
+import org.openqa.selenium.winium.WiniumOptions;
+import org.sikuli.script.Screen;
 
 import com.libreria.LibreriaClase.FuncionesMatematicas.FuncionesAritmeticas;
 import com.sophos.Nivel1.Capacitacion.Clase4.Carro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Modificadores1;
 import com.sophos.Nivel1.Capacitacion.Clase4.Polihedro;
 import com.sophos.Nivel1.Capacitacion.Clase4.Rectagulo;
+import com.sophos.Nivel1.Capacitacion.Csv.LeerArchivosCsv;
 import com.sophos.Nivel1.Capacitacion.PageObject.VistaHomeEbay;
 import com.sophos.Nivel1.Capacitacion.PageObject.VistaHomeMercadoLibre;
 import com.sophos.Nivel1.Capacitacion.PageObject.VistaResultados;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Fruta;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Mango;
 import com.sophos.Nivel1.Capacitacion.PatronFactory.Manzana;
+import com.sophos.Nivel1.Capacitacion.Tour.Francia;
+
+import net.bytebuddy.asm.Advice.Local;
 
 /**
  * Hello world!
  *
  */
 public class App {
-	public static void main(String[] args) {
+	static int count = 0;
+	private static String user = "admin";
+	private static String keyUser = "123";
 
-		App app = new App();
-		app.clase11MercadoLibre();
+	public static void main(String[] args) {
+		System.out.println("Respuesta" + test(4) + " \n" + "===================\n");
+		test2();
+//		System.setProperty("webdriver.chrome.driver",
+//				"C:\\Users\\usuario\\IdeaProjects\\serenitybddlerning\\src\\test\\resources\\drivers\\chromedriver.exe");
+//		WebDriver driver;
+//		driver = new ChromeDriver();
+//		driver.get("http://www.google.com");
+//		try {
+//			Thread.sleep(4000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		driver.quit();
+//		WebDriverWait wait = new WebDriverWait(driver, 10);
+//		wait.until(ExpectedConditions.alertIsPresent());
+
+//		System.setProperty("webdriver.chrome.driver",
+//				"C:\\Users\\usuario\\IdeaProjects\\serenitybddlerning\\src\\test\\resources\\drivers\\chromedriver.exe");
+//		WebDriver driver;
+//		for (int i = 0; i < 3; i++) {
+//			driver = new ChromeDriver();
+//			driver.get("https://es.duolingo.com/");
+//			WebElement botonYaTengoUnaCuenta = driver
+//					.findElement(By.xpath("//*[@id=\"root\"]/div/div/span[1]/div/div[1]/div[2]/div[2]/a"));
+//			botonYaTengoUnaCuenta.click();
+//			WebElement cajaTextoUsuario = driver.findElement(
+//					By.xpath("//*[@id=\"overlays\"]/div[5]/div/div/form/div[1]/div[1]/div[1]/label/div/input"));
+//			cajaTextoUsuario.sendKeys("usuario@prueba.com");
+//			WebElement cajaTextoClave = driver.findElement(
+//					By.xpath("//*[@id=\"overlays\"]/div[5]/div/div/form/div[1]/div[1]/div[2]/label/div[1]/input"));
+//			cajaTextoClave.sendKeys("clave123151");
+//			driver.quit();
+//	}
+//		try {
+//			Thread.sleep(3000);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		driver.getDriver().findElement(By.name("pbFechaIda")).click();
+//		WebElement cajaDeFecha = driver.getDriver().findElement(By.className("calendar-container"));
+//		try {
+//			Thread.sleep(1000);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//		WebElement botonAnterio;
+//		int intentosDeAnterior = 12;
+//		while (intentosDeAnterior > 0) {
+//			botonAnterio = cajaDeFecha.findElement(By.className("prev"));
+//			if (botonAnterio.getAttribute("class").toLowerCase().contains("disabled")) {
+//				System.out.println("Botón anterior deshabilitado");
+//				break;
+//			}
+//			botonAnterio.click();
+//			intentosDeAnterior--;
+//			try {
+//				Thread.sleep(300);
+//			} catch (Exception e) {
+//				// TODO: handle exception
+//			}
+//		}
+//		boolean encontroFechaInicial = false;
+//		List<WebElement> listaTDs = cajaDeFecha.findElements(By.tagName("td"));
+//		System.out.println("Cantidad de tags");
+//		for (WebElement fechaParticular : listaTDs) {
+//			if (fechaParticular.getAttribute("class").contains("number")) {
+//				System.out.println(fechaParticular.getAttribute("data-date"));
+//				if (fechaParticular.getAttribute("data-date").contains("2021-02-30")) {
+//					fechaParticular.click();
+//					encontroFechaInicial = true;
+//					break;
+//				}
+//			}
+//		}
+//
+//		if (!encontroFechaInicial) {
+//			throw new RuntimeException("La fecha inicial no fue encontrada");
+//		}
+
+//		Driver driver = new Driver();
+//		driver.lanzarNavegador("google");
+//		driver.navegarA("https://co.marca.com/claro/ciclismo/tour-francia/clasificacion.html");
+//		Francia francia = new Francia(driver.getDriver());
+//		francia.listaTablas();
+//		try {
+//			Thread.sleep(5000);
+//		} catch (Exception e) {
+//		}
+//		driver.cierreNavegador();
+
+//		BaseDeDatos obj = new BaseDeDatos();
+//		obj.conexion();
+
+//		App obj = new App();
+//		try {
+//			obj.clase11MercadoLibre();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
+
+	public static int test(int x) {
+		System.out.println(">" + x);
+		if (x <= 1) {
+			return 1;
+		} else {
+			return test(x - 1) * x;
+		}
+	}
+
+	public static void test2() {
+		int index = 13;
+		int sum = 0;
+		int k = 0;
+		while (k < index) {
+			k = k + 1;
+			sum = sum + k;
+			System.out.println(k +"-:-"+sum);
+		}
+
+		System.out.println("<_>" + sum);
+	}
 	
+	public void motor(String disel) {
+		
+	}
+	
+	public void motor(int gasolina) {
+		
+	}
+
+	public static void pruebaWinium() {
+		ChromeOptions options2 = new ChromeOptions();
+//		options2.addArguments("start-maximized");
+//		options2.setExperimentalOption("useAutomationExtension", false);
+//		options2.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+		options2.setExperimentalOption("debuggerAddress", "127.0.0.1:9222"); // Perrada 99
+		WiniumDriverService service = new WiniumDriverService.Builder().usingDriverExecutable(new File(""))
+				.buildDesktopService();
+		DesktopOptions options = new DesktopOptions();
+		WebDriver driver = new WiniumDriver(options);
+
+	}
+
 	public void clase12iEBay() {
 		Driver objDriver = new Driver();
 		objDriver.lanzarNavegador("google");
 		objDriver.navegarA("https://www.ebay.com/");
 		VistaHomeEbay ebay = new VistaHomeEbay(objDriver.getDriver());
-		if(ebay.seleccionarListaDesplegablePorNombre("Cámaras y   fotografía")) {
+		if (ebay.seleccionarListaDesplegablePorNombre("Cámaras y   fotografía")) {
 			System.out.println("Pudo seleccionar una posición");
-		}else {
+		} else {
 			System.out.println("La posición ingresada no existe");
 		}
 
 		try {
-			Thread.sleep(5000);	
+			Thread.sleep(5000);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		objDriver.cierreNavegador();
-		
+
 	}
-	
-	public void clase11MercadoLibre() {
-		
-		Driver objDriver = new Driver();
-		objDriver.lanzarNavegador("firefox");
-		objDriver.navegarA("https://www.mercadolibre.com.co/");
-		VistaHomeMercadoLibre objVistaHome = new VistaHomeMercadoLibre(objDriver.getDriver());
-		objVistaHome.setTexto("mazadfadfadfasdfadfadfasdfada");
-	
-		VistaResultados objResultados = new VistaResultados(objDriver.getDriver());
-		if(objResultados.darClickPrimerResultado()) {
-			System.out.println("El elemento exite");
-		}else {
-			System.out.println("El elemento que desea buscar no existe");
+
+	public void clase11MercadoLibre() throws IOException {
+		LeerArchivosCsv obj = new LeerArchivosCsv();
+//		obj.leerCsv();
+		System.out.println("inicio");
+		List<CSVRecord> lista = obj.todasLista("./ejercicio.csv");
+		System.out.println("Número de lineas: " + lista.size());
+		System.out.println("Número de lineas lista: " + lista.size());
+//		System.out.println(csvParser.getRecords().size());
+		for (CSVRecord linea : lista) {
+			Driver objDriver = new Driver();
+			objDriver.lanzarNavegador(linea.get(0));
+			objDriver.navegarA("https://www.mercadolibre.com.co/");
+			VistaHomeMercadoLibre objVistaHome = new VistaHomeMercadoLibre(objDriver.getDriver());
+			objVistaHome.setTexto(linea.get(1));
+
+			VistaResultados objResultados = new VistaResultados(objDriver.getDriver());
+			if (objResultados.darClickPrimerResultado()) {
+				System.out.println("El elemento exite");
+			} else {
+				System.out.println("El elemento que desea buscar no existe");
+			}
+
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			objDriver.cierreNavegador();
 		}
-		
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		objDriver.cierreNavegador();
+
 	}
-	
-	
-	
-	
+
 	public void clase10() {
 //		Fruta mango = new Mango();
 //		System.out.println(mango.color());
@@ -90,14 +273,11 @@ public class App {
 //		System.out.println(manzana.color());
 //		
 //		WebDriver objDriver = new ChromeDriver();
-		
-		
-		
-		
-		PatronSingleton objPatron = PatronSingleton.getInstancia("Instancia uno","clave 1");
+
+		PatronSingleton objPatron = PatronSingleton.getInstancia("Instancia uno", "clave 1");
 		System.out.println(objPatron.toString());
 	}
-	
+
 	public void clase9() {
 		Ordenamiento objOrde = new Ordenamiento();
 		objOrde.metodo1();
@@ -111,9 +291,6 @@ public class App {
 		}
 
 	}
-	
-
-	
 
 	public void paginaMecadoLibre() {
 		WebDriver driverLocal;
@@ -128,10 +305,9 @@ public class App {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		List<WebElement> listaElementos = objDriver.getDriver()
-				.findElements(By.className("objDriver.getDriver()"));
-		
-		System.out.println("Cantidad elementos encontrados "+listaElementos.size());
+		List<WebElement> listaElementos = objDriver.getDriver().findElements(By.className("objDriver.getDriver()"));
+
+		System.out.println("Cantidad elementos encontrados " + listaElementos.size());
 		try {
 			Thread.sleep(5000);
 		} catch (Exception e) {
